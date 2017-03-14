@@ -34,3 +34,5 @@ little <size=40>lamb</size>
 Will result in this:
 
 ![Totally the best gif evar](https://github.com/roguecode/Unity-Simple-SRT/blob/master/Preview.gif?raw=true)
+
+A good program to make subs is [SubtitleEdit](https://github.com/SubtitleEdit/subtitleedit/releases)
