@@ -24,7 +24,7 @@ public class SRTParser
       return;
     }
 
-    var lines = textAsset.text.Split(new[] { "\r\n" }, StringSplitOptions.None);
+    var lines = textAsset.text.Split(new[] { GetLineSeparator }, StringSplitOptions.None);
 
     var currentState = eReadState.Index;
 
@@ -113,6 +113,18 @@ public class SRTParser
       return subtitle;
     }
     return null;
+  }
+  
+  private String GetLineSeparator 
+  {
+   get
+   { 
+    if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Windows) 
+    {
+     return "\r\n";
+    }
+    return "\n";
+   }
   }
 
   enum eReadState
