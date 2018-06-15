@@ -24,7 +24,7 @@ public class SRTParser
       return;
     }
 
-    var lines = textAsset.text.Split(new[] { "\r\n" }, StringSplitOptions.None);
+    var lines = textAsset.text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
     var currentState = eReadState.Index;
 
