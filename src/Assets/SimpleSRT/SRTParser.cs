@@ -13,22 +13,22 @@ public class SRTParser
 
   public SRTParser(TextAsset textAsset)
   {
-    Load(textAsset);
+    this._subtitles = Load(textAsset);
   }
 
-  void Load(TextAsset textAsset)
+  static public List<SubtitleBlock> Load(TextAsset textAsset)
   {
     if (textAsset == null)
     {
       Debug.LogError("Subtitle file is null");
-      return;
+      return null;
     }
 
     var lines = textAsset.text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
     var currentState = eReadState.Index;
 
-    _subtitles = new List<SubtitleBlock>();
+    var subs = new List<SubtitleBlock>();
 
     int currentIndex = 0;
     double currentFrom = 0, currentTo = 0;
@@ -79,7 +79,7 @@ public class SRTParser
             if (string.IsNullOrEmpty(line) || l == lines.Length - 1)
             {
               // Create the SubtitleBlock with the data we've aquired 
-              _subtitles.Add(new SubtitleBlock(currentIndex, currentFrom, currentTo, currentText));
+              subs.Add(new SubtitleBlock(currentIndex, currentFrom, currentTo, currentText));
 
               // Reset stuff so we can start again for the next block
               currentText = string.Empty;
@@ -89,6 +89,7 @@ public class SRTParser
           break;
       }
     }
+	return subs;
   }
 
   public SubtitleBlock GetForTime(float time)
