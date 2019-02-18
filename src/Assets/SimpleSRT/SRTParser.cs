@@ -32,7 +32,7 @@ public class SRTParser
 
     int currentIndex = 0;
     double currentFrom = 0, currentTo = 0;
-    var currentText = "";
+    var currentText = string.Empty;
     for (var l = 0; l < lines.Length; l++)
     {
       var line = lines[l];
@@ -73,6 +73,9 @@ public class SRTParser
           break;
         case eReadState.Text:
           {
+			if (currentText != string.Empty)
+				currentText += "\r\n";
+
             currentText += line;
 
             // When we hit an empty line, consider it the end of the text
