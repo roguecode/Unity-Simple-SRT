@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SubtitleDisplayer : MonoBehaviour
 {
   public TextAsset Subtitle;
-  public Text Text;
-  public Text Text2;
+  public TextMeshProUGUI Text;
+  public TextMeshProUGUI Text2;
 
   [Range(0, 1)]
   public float FadeTime;
@@ -76,21 +77,21 @@ public class SubtitleDisplayer : MonoBehaviour
     FadeTime = ((int)(FadeTime * 10)) / 10f;
   }
 
-  IEnumerator FadeTextOut(Text text)
+  IEnumerator FadeTextOut(TextMeshProUGUI text)
   {
     var toColor = text.color;
     toColor.a = 0;
     yield return Fade(text, toColor, Ease.OutSine);
   }
 
-  IEnumerator FadeTextIn(Text text)
+  IEnumerator FadeTextIn(TextMeshProUGUI text)
   {
     var toColor = text.color;
     toColor.a = 1;
     yield return Fade(text, toColor, Ease.InSine);
   }
 
-  IEnumerator Fade(Text text, Color toColor, Ease ease)
+  IEnumerator Fade(TextMeshProUGUI text, Color toColor, Ease ease)
   {
     yield return DOTween.To(() => text.color, color => text.color = color, toColor, FadeTime).SetEase(ease).WaitForCompletion();
   }
