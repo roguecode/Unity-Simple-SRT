@@ -1,0 +1,25 @@
+{
+  "name": "com.roguecode.unity-simple-srt",
+  "displayName": "Unity Simple SRT",
+  "version": "1.0.0",
+  "unity": "2019.4",
+  "category": "Library/Audio",
+  "keywords": [
+    "package",
+    "unity"
+  ],
+  "description": "A super simple SRT subtitle parser",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "dependencies": {},
+  "author": "Roguecode <matt@roguecode.co.za>",
+  "samples": [
+    {
+      "displayName": "Subtitle Displayer",
+      "description": "A compontent that will display parsed Subtitles in a `Text` element, crossfading between lines depending on a custom `Fade Time`",
+      "path": "Samples~/SubtitleDisplayer"
+    }
+  ]
+}
