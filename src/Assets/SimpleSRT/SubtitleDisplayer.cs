@@ -13,6 +13,19 @@ public class SubtitleDisplayer : MonoBehaviour
   [Range(0, 1)]
   public float FadeTime;
 
+  private bool _isPaused;
+  private bool _isPausedTimeSet;
+  private float _pausedTime;
+
+  void Update()
+  {
+      if (Input.GetKeyDown("space"))
+      {
+          Debug.Log("Subtitles Paused");
+          _isPaused = !_isPaused;
+      }
+  }
+  
   public IEnumerator Begin()
   {
     var currentlyDisplayingText = Text;
@@ -33,7 +46,25 @@ public class SubtitleDisplayer : MonoBehaviour
     SubtitleBlock currentSubtitle = null;
     while (true)
     {
+      while (_isPaused)
+      {
+        if (!_isPausedTimeSet)
+        {
+          _pausedTime = Time.time;
+          _isPausedTimeSet = true;
+        }
+        
+        yield return null;
+      }
+
+      if (_isPausedTimeSet)
+      {
+        startTime += Time.time - _pausedTime;
+        _isPausedTimeSet = false;
+      }
+
       var elapsed = Time.time - startTime;
+
       var subtitle = parser.GetForTime(elapsed);
       if (subtitle != null)
       {
@@ -62,7 +93,7 @@ public class SubtitleDisplayer : MonoBehaviour
       }
       else
       {
-        Debug.Log("Subtitles ended");
+        //Debug.Log("Subtitles ended");
         StartCoroutine(FadeTextOut(currentlyDisplayingText));
         yield return FadeTextOut(fadedOutText);
         currentlyDisplayingText.gameObject.SetActive(false);
@@ -74,7 +105,7 @@ public class SubtitleDisplayer : MonoBehaviour
 
   void OnValidate()
   {
-    FadeTime = ((int)(FadeTime * 10)) / 10f;
+    FadeTime = (int)(FadeTime * 10) / 10f;
   }
 
   IEnumerator FadeTextOut(TextMeshProUGUI text)
