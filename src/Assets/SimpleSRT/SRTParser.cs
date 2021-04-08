@@ -76,18 +76,18 @@ public class SRTParser
 			if (currentText != string.Empty)
 				currentText += "\r\n";
 
-            currentText += line;
+      currentText += line;
 
-            // When we hit an empty line, consider it the end of the text
-            if (string.IsNullOrEmpty(line) || l == lines.Length - 1)
-            {
-              // Create the SubtitleBlock with the data we've aquired 
-              subs.Add(new SubtitleBlock(currentIndex, currentFrom, currentTo, currentText));
+      // When we hit an empty line, consider it the end of the text
+      if (string.IsNullOrEmpty(line) || l == lines.Length - 1)
+      {
+        // Create the SubtitleBlock with the data we've aquired 
+        subs.Add(new SubtitleBlock(currentIndex, currentFrom, currentTo, currentText));
 
-              // Reset stuff so we can start again for the next block
-              currentText = string.Empty;
-              currentState = eReadState.Index;
-            }
+        // Reset stuff so we can start again for the next block
+        currentText = string.Empty;
+        currentState = eReadState.Index;
+      }
           }
           break;
       }
@@ -130,22 +130,19 @@ public class SRTParser
 public class SubtitleBlock
 {
   static SubtitleBlock _blank;
-  public static SubtitleBlock Blank
-  {
-    get { return _blank ?? (_blank = new SubtitleBlock(0, 0, 0, string.Empty)); }
-  }
-  public int Index { get; private set; }
-  public double Length { get; private set; }
-  public double From { get; private set; }
-  public double To { get; private set; }
-  public string Text { get; private set; }
+  public static SubtitleBlock Blank => _blank ?? (_blank = new SubtitleBlock(0, 0, 0, string.Empty));
+  public int Index { get;  }
+  public double Length { get;  }
+  public double From { get;  }
+  public double To { get;  }
+  public string Text { get;  }
 
   public SubtitleBlock(int index, double from, double to, string text)
   {
-    this.Index = index;
-    this.From = from;
-    this.To = to;
-    this.Length = to - from;
-    this.Text = text;
+    Index = index;
+    From = from;
+    To = to;
+    Length = to - from;
+    Text = text;
   }
 }
